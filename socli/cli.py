@@ -38,7 +38,8 @@ def command(sysArgs=None):
         "help",
         "version",
         "input=",
-        "output="
+        "output=",
+        "debug",
     ]
 
     helpMsg = (
@@ -50,6 +51,7 @@ def command(sysArgs=None):
         " -v, --version  Print program version and exit.\n"
         " -i, --input=   The input file or folder.\n"
         " -o, --output=  The output folder.\n"
+        "     --debug    Print debugging output.\n"
     ).format(
         version   = socli.__version__,
         copyright = socli.__copyright__,
@@ -63,6 +65,8 @@ def command(sysArgs=None):
     # Internal Variables
     inPath = None
     outPath = None
+    logLevel = logging.INFO
+    logFormat  = "{levelname:8}  {message:}"
 
     # Parse Options
     try:
@@ -82,6 +86,9 @@ def command(sysArgs=None):
             inPath = inArg
         elif inOpt in ("-o", "--output"):
             outPath = inArg
+        elif inOpt == "--debug":
+            logLevel  = logging.DEBUG
+            logFormat = "[{asctime:}] {name:>12}:{lineno:<4d}  {levelname:8}  {message:}"
         else:
             print(f"ERROR: Unrecognised command line option '{inOpt}'")
             print("")
@@ -100,5 +107,14 @@ def command(sysArgs=None):
     if inPath == outPath:
         print("ERROR: Input and output cannot be the same location")
         sys.exit(1)
+
+    # Set Logging
+    cHandle = logging.StreamHandler()
+    cHandle.setFormatter(logging.Formatter(fmt=logFormat, style="{"))
+    logger.addHandler(cHandle)
+    logger.setLevel(logLevel)
+
+    # Init complete
+    logger.debug("Command line initialisation complete")
 
     return

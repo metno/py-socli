@@ -20,6 +20,7 @@ limitations under the License.
 """
 
 from .cli import command
+from .data import SOData
 
 __copyright__ = "Copyright 2021, MET Norway"
 __license__   = "Apache-2.0"
@@ -27,5 +28,6 @@ __version__   = "0.0.1"
 __date__      = "2021-01-01"
 
 __all__ = [
-    "command"
+    "command",
+    "SOData",
 ]

@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 class SOData():
 
-    def __init__self():
+    def __init__(self):
         return
 
 # END Class SOData
