@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Systems Overview – Init
-=======================
-Package initialisation
+Systems Overview CLI - Data Class
+=================================
+Class wrapping the TOML data
 
 Copyright 2021 MET Norway
 
@@ -19,13 +19,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .cli import command
+import logging
 
-__copyright__ = "Copyright 2021, MET Norway"
-__license__   = "Apache-2.0"
-__version__   = "0.0.1"
-__date__      = "2021-01-01"
+logger = logging.getLogger(__name__)
 
-__all__ = [
-    "command"
-]
+class SOData():
+
+    def __init__self():
+        return
+
+# END Class SOData

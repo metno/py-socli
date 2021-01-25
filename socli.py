@@ -5,4 +5,6 @@ import sys
 
 if __name__ == "__main__":
     import socli
-    socli.main(sys.argv)
+    socli.command(sys.argv[1:])
+
+# END
