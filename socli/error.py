@@ -23,7 +23,7 @@ import logging
 # Initiating logging
 logger = logging.getLogger(__name__)
 
-class CLIOptionError(Exception):
+class CLIOptionsError(Exception):
     """Raised when there is a problem with the command line input.
     """
     pass
@@ -42,6 +42,10 @@ def exceptionHandler(exType, exValue, exTrace):
         print("=========")
         print("")
         print_tb(exTrace)
+        print("")
+    else:
+        print("")
+        print(">>> socli exited with an error")
         print("")
 
     return

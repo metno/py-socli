@@ -19,13 +19,52 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
+import os
 import logging
+
+from ..error import CLIOptionsError
 
 logger = logging.getLogger(__name__)
 
 class SOData():
 
-    def __init__(self):
+    def __init__(self, srcPath):
+
+        self.srcPath = str(srcPath)
+        self.srcList = []
+
+        # Prepare Class
+        self._scanSourceData()
+
+        return
+
+    ##
+    #  Internal Functions
+    ##
+
+    def _scanSourceData(self):
+        """Scan the source path and (recursively) build a list of all
+        toml files in its tree.
+        """
+        self.srcList = []
+
+        if os.path.isfile(self.srcPath):
+            # Input is a single file
+            logger.info(f"Input file: {self.srcPath}")
+            if self.srcPath.endswith(".toml"):
+                self.srcList.append(self.srcPath)
+                return
+            else:
+                raise CLIOptionsError("Input file is not a .toml file.")
+
+        elif os.path.isdir(self.srcPath):
+            # Input is a directory
+            logger.info(f"Input folder: {self.srcPath}")
+
+        else:
+            # Input path is not valid
+            raise FileNotFoundError(f"Input path is not valid: {self.srcPath}")
+
         return
 
 # END Class SOData

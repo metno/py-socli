@@ -91,7 +91,7 @@ def command(sysArgs=None):
             outPath = inArg
         elif inOpt == "--debug":
             logLevel  = logging.DEBUG
-            logFormat = "[{asctime:}] {name:>12}:{lineno:<4d}  {levelname:8}  {message:}"
+            logFormat = "[{asctime:}] {name:>15}:{lineno:<4d}  {levelname:8}  {message:}"
         else:
             print(f"ERROR: Unrecognised command line option '{inOpt}'")
             print("")
