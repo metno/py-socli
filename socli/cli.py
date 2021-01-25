@@ -24,6 +24,9 @@ import sys
 import logging
 import getopt
 
+from .main import main
+from .error import exceptionHandler
+
 # Initiating logging
 logger = logging.getLogger(__name__)
 
@@ -66,7 +69,7 @@ def command(sysArgs=None):
     inPath = None
     outPath = None
     logLevel = logging.INFO
-    logFormat  = "{levelname:8}  {message:}"
+    logFormat = "{levelname:8}  {message:}"
 
     # Parse Options
     try:
@@ -111,10 +114,16 @@ def command(sysArgs=None):
     # Set Logging
     cHandle = logging.StreamHandler()
     cHandle.setFormatter(logging.Formatter(fmt=logFormat, style="{"))
-    logger.addHandler(cHandle)
-    logger.setLevel(logLevel)
+
+    pkgLogger = logging.getLogger(__package__)
+    pkgLogger.addHandler(cHandle)
+    pkgLogger.setLevel(logLevel)
 
     # Init complete
     logger.debug("Command line initialisation complete")
+
+    # Run the main code wrapper
+    sys.excepthook = exceptionHandler
+    sys.exit(main(inPath, outPath))
 
     return
